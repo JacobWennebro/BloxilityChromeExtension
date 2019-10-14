@@ -1,0 +1,25 @@
+body {
+  background: #222f3e;
+  color: #FFF;
+  min-width: 300px;
+  min-height: 500px;
+}
+::selection {
+  background: #2ecc71;
+}
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+  background: #1a2733;
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #2ecc71;
+}
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #2ecc71;
+}

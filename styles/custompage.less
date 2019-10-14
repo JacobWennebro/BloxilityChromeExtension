@@ -1,0 +1,42 @@
+body {
+    color: #FFF;
+    h1 {
+        text-shadow: 1px 1px 2px black; 
+    }
+}
+.grid {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-gap: 1rem;
+    .setting {
+        min-height: 15vh;
+        .CodeMirror {
+            font-size: 1rem;
+        }
+        p {
+            padding: 0.3rem;
+            display: inline-block;
+            text-shadow: 1px 1px 2px black; 
+
+        }
+        .input {
+            width: 100%;
+            input {
+                width: 90%;
+                background: #151515;
+                border: 0;
+                color: #FFF;
+                padding: 0.5rem 5%;
+                float: left;
+            }
+            button {
+                width: 10%;
+                border: 0;
+                padding: 0.5rem;
+                background: #151515;
+                color: #2ecc71;
+                font-weight: bold;
+            }
+        }
+    }
+}
