@@ -2,6 +2,10 @@ body {
     overflow: hidden;
 }
 
+.content {
+    background-color: transparent !important;
+}
+
 .request-error-page-content {
     display: none !important;
 }

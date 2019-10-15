@@ -6,11 +6,12 @@ body h1 {
 }
 .grid {
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: 50% 50%;
   grid-gap: 1rem;
 }
 .grid .setting {
   min-height: 15vh;
+  max-width: 100%;
 }
 .grid .setting .CodeMirror {
   font-size: 1rem;

@@ -8,6 +8,9 @@
 
 window.onload = () => {
 
+    // AD BLOCKER
+    document.querySelectorAll('*[data-js-adtype]').forEach(ad => { ad.remove() })
+
     const ApiBaseUrl = 'http://86.0.7.137:3000';
 
     if (window.location.pathname.startsWith('/games/') && window.location.pathname.length > 7) {
@@ -35,6 +38,7 @@ window.onload = () => {
 
     setTimeout(() => {
         if (window.location.pathname.startsWith('/home')) {
+
             fetch(`https://cors-anywhere.herokuapp.com/${ApiBaseUrl}/api/v1/getServers?limit=6`).then(res => res.json())
                 .then(json => {
                     const originalSection = document.querySelector('.col-xs-12.container-list.places-list.ng-scope');
@@ -70,8 +74,6 @@ window.onload = () => {
                 });
         }
 
-    }, 1000)
-
     /* BLOXILITY SETTINGS BUTTON */
     if (window.location.pathname.startsWith('/my/account')) {
         let menuItem = document.querySelectorAll('.menu-option')[1].cloneNode(true);
@@ -82,6 +84,8 @@ window.onload = () => {
 
         document.getElementById('vertical-menu').appendChild(menuItem);
     }
+        
+    }, 1000);
 
     /* BLOXILITY SETTINGS PAGE */
     if (window.location.pathname.startsWith('/bloxility-settings')) {
@@ -94,8 +98,8 @@ window.onload = () => {
 
         const container = document.createElement('div');
             container.style.background = 'rgba(0,0,0,0.5)';
-            container.style.width = '60%';
-            container.style.height = '90%';
+            container.style.width = '80%';
+            container.style.height = '100%';
             container.style.margin = 'auto';
 
         const frame = document.createElement('iframe');
@@ -114,6 +118,8 @@ window.onload = () => {
         content.appendChild(container)
 
     }
+
+    if(!localStorage.currentTheme) localStorage.currentTheme = "";
 
     /* APPLY CUSTOM THEME */
     const styleTag = document.createElement('style');
