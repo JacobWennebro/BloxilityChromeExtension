@@ -113,8 +113,6 @@ window.onload = () => {
             }
 
         container.appendChild(frame);
-
-        console.log(chrome.extension.getURL('/settings.html'))
         content.appendChild(container)
 
     }

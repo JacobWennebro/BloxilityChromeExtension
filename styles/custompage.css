@@ -1,20 +1,24 @@
 body {
   color: #FFF;
+  overflow: hidden;
 }
 body h1 {
   text-shadow: 1px 1px 2px black;
 }
 .grid {
   display: grid;
-  grid-template-columns: 50% 50%;
+  grid-template-columns: 45% 45%;
   grid-gap: 1rem;
+  height: 90%;
 }
 .grid .setting {
-  min-height: 15vh;
+  height: 100%;
   max-width: 100%;
 }
 .grid .setting .CodeMirror {
   font-size: 1rem;
+  height: 50%;
+  width: 100%;
 }
 .grid .setting p {
   padding: 0.3rem;
@@ -39,4 +43,20 @@ body h1 {
   background: #151515;
   color: #2ecc71;
   font-weight: bold;
+}
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+  background: #151515;
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #2ecc71;
+}
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #28B16E;
 }
