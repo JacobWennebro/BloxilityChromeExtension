@@ -14,7 +14,7 @@ window.onmessage = function(e){
     });
 };
 
-document.getElementById('setStyle').onclick = (e) => {
+const setStyle = () => {
     let value = document.getElementById('stylesheetSrc').value;
     try {
 
@@ -22,8 +22,8 @@ document.getElementById('setStyle').onclick = (e) => {
 
         fetch(link.href).then(res => res.text())
         .then(css => {
-            console.log(myCodeMirror.setValue(css));
             window.top.postMessage({ id:"bloxility-post-protocol", css: css}, '*')
+            myCodeMirror.setValue(css);
         });
 
     }
@@ -31,3 +31,5 @@ document.getElementById('setStyle').onclick = (e) => {
         return;
     }
 }
+
+document.getElementById('setStyle').onclick = setStyle;

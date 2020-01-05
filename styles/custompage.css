@@ -20,6 +20,9 @@ body h1 {
   height: 50%;
   width: 100%;
 }
+.grid .setting #defaultThemeDump h1 {
+  text-transform: capitalize;
+}
 .grid .setting p {
   padding: 0.3rem;
   display: inline-block;

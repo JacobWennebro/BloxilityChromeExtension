@@ -2,6 +2,8 @@ body {
     overflow: hidden;
 }
 
+*[data-js-adtype], .abp { display: none !important; } 
+
 .content {
     background-color: transparent !important;
 }

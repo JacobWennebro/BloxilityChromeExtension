@@ -10,7 +10,14 @@
         {
             "matches": ["https://roblox.com/*", "https://www.roblox.com/*"],
             "js": ["bloxility.js"],
-            "css": ["styles/bloxility.css"]
+            "css": ["styles/bloxility.css"],
+            "run_at": "document_start",
+            "all_frames": true
         }
+    ],
+    "permissions": [
+        "storage",
+        "unlimitedStorage",
+        "tabs"
     ]
 }

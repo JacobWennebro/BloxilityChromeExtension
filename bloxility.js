@@ -6,12 +6,24 @@
 #
 */
 
+chrome.storage.local.get("theme", e => { 
+    if(Object.keys(e).length <= 0) {
+        chrome.storage.local.set({ "theme": "" });
+    }
+});
+
+/* APPLY CUSTOM THEME */
+const styleTag = document.createElement('style');
+chrome.storage.local.get("theme", e => {
+    styleTag.innerHTML = e.theme.split('\n').join('');
+    document.head.appendChild(styleTag);
+});
+
 window.onload = () => {
 
-    // AD BLOCKER
-    document.querySelectorAll('*[data-js-adtype]').forEach(ad => { ad.remove() })
+    chrome.storage.local.get("theme", e => console.log(e));
 
-    const ApiBaseUrl = 'http://86.0.7.137:3000';
+    const ApiBaseUrl = 'http://178.32.24.165:3000';
 
     if (window.location.pathname.startsWith('/games/') && window.location.pathname.length > 7) {
 
@@ -41,6 +53,7 @@ window.onload = () => {
 
             fetch(`https://cors-anywhere.herokuapp.com/${ApiBaseUrl}/api/v1/getServers?limit=6`).then(res => res.json())
                 .then(json => {
+
                     const originalSection = document.querySelector('.col-xs-12.container-list.places-list.ng-scope');
                     const originalPost = originalSection.children[1].children[0];
                     const container = document.querySelector('div[places-list-container]');
@@ -58,6 +71,8 @@ window.onload = () => {
                     console.log(json)
 
                     for (let i = 0; i < json.result.length; i++) {
+                        if(json.result[i] == null) continue;
+
                         const post = originalPost.cloneNode(true);
 
                         console.log(post.querySelector('.game-name-title'));
@@ -74,63 +89,55 @@ window.onload = () => {
                 });
         }
 
-    /* BLOXILITY SETTINGS BUTTON */
-    if (window.location.pathname.startsWith('/my/account')) {
-        let menuItem = document.querySelectorAll('.menu-option')[1].cloneNode(true);
+        /* BLOXILITY SETTINGS BUTTON */
+        let menuItem = document.querySelector('.dropdown-menu').children[1].cloneNode(true);
 
-        menuItem.querySelector('span').innerText = 'Bloxility Settings';
-        menuItem.classList.remove('active');
-        menuItem.querySelector('a').href = '/bloxility-settings';
+        menuItem.querySelector('a').innerText = 'Better Settings';
+        menuItem.querySelector('a').href = '/betterroblox';
 
-        document.getElementById('vertical-menu').appendChild(menuItem);
-    }
-        
+        document.querySelectorAll('.dropdown-menu')[1].insertBefore(menuItem, document.querySelectorAll('.dropdown-menu')[1].children[0]);
+
+        console.log(menuItem);
     }, 1000);
 
     /* BLOXILITY SETTINGS PAGE */
-    if (window.location.pathname.startsWith('/bloxility-settings')) {
+    if (window.location.pathname.startsWith('/bettersettings')) {
         const content = document.querySelector('.content');
-            content.style.width = '100%';
-            content.style.height = '80vh';
-            content.style.maxWidth = '100%';
-            content.style.margin = '0';
-            content.innerHTML = '';
+        content.style.width = '100%';
+        content.style.height = '80vh';
+        content.style.maxWidth = '100%';
+        content.style.margin = '0';
+        content.innerHTML = '';
 
         const container = document.createElement('div');
-            container.style.background = 'rgba(0,0,0,0.5)';
-            container.style.width = '80%';
-            container.style.height = '100%';
-            container.style.margin = 'auto';
+        container.style.background = 'rgba(0,0,0,0.5)';
+        container.style.width = '80%';
+        container.style.height = '100%';
+        container.style.margin = 'auto';
 
         const frame = document.createElement('iframe');
-            frame.src = chrome.extension.getURL('/settings.html');
-            frame.style.width = "100%";
-            frame.style.height = "100%";
-            frame.frameBorder = '0';
+        frame.src = chrome.extension.getURL('/settings.html');
+        frame.style.width = "100%";
+        frame.style.height = "100%";
+        frame.frameBorder = '0';
 
-            frame.onload = () => {
-                frame.contentWindow.postMessage(localStorage.currentTheme, '*');
-            }
+        frame.onload = () => {
+            chrome.storage.local.get("theme", e => {
+                frame.contentWindow.postMessage(e.theme, '*');
+            });
+        }
 
         container.appendChild(frame);
         content.appendChild(container)
 
     }
 
-    if(!localStorage.currentTheme) localStorage.currentTheme = "";
-
-    /* APPLY CUSTOM THEME */
-    const styleTag = document.createElement('style');
-        styleTag.innerHTML = localStorage.currentTheme.split('\n').join('');
-    
-    document.head.appendChild(styleTag);
-
     /* HANDLE THEME SAVE */
-    window.onmessage = function(e){
-        if(e.data.id === "bloxility-post-protocol") {
-            console.log(e.data.css);
-            localStorage.currentTheme = e.data.css;
-            styleTag.innerHTML = localStorage.currentTheme.split('\n').join('');
+    window.onmessage = function (e) {
+        if (e.data.id === "bloxility-post-protocol") {
+            chrome.storage.local.set({ "theme": e.data.css }, () => { 
+                styleTag.innerHTML = e.data.css;
+            });
         }
     };
 }
